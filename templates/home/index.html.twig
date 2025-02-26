@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenido a BM Correduría{% endblock %}
+
+{% block body %}
+    <h1>Bienvenido a BM Correduría de Seguros</h1>
+    {% if app.user %}
+        <p>Hola, {{ app.user.email }} | <a href="{{ path('app_logout') }}">Cerrar sesión</a></p>
+        {% if is_granted('ROLE_ADMIN') %}
+            <p><a href="/admin">Panel de administración</a></p>
+        {% endif %}
+        {% if is_granted('ROLE_USER') %}
+            <p><a href="/cliente">Área de cliente</a></p>
+        {% endif %}
+    {% else %}
+        <p><a href="{{ path('app_login') }}">Iniciar sesión</a></p>
+    {% endif %}
+{% endblock %}

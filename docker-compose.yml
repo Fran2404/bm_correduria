@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  php:
+    build:
+      context: /home/franveper/bm_correduria # Directorio donde está el Dockerfile
+      dockerfile: Dockerfile
+    container_name: php-fpm
+    volumes:
+      - .:/var/www/html
+    networks:
+      - bm_correduria_default
+    depends_on:
+      - database
+    environment:
+      - PHP_EXTENSION_PDO_MYSQL=1
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+    networks:
+      - bm_correduria_default
+
+  database:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: bm_correduria
+      MYSQL_USER: bmuser
+      MYSQL_PASSWORD: bmuserpassword
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    networks:
+      - bm_correduria_default
+
+networks:
+  bm_correduria_default:
+    driver: bridge
+
+volumes:
+  mysql-data:
+
+
