@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panel de Administración{% endblock %}
+
+{% block body %}
+    <h1>Panel de Administración</h1>
+    <p>Bienvenido, {{ app.user.email }}. Esta es el área exclusiva para administradores.</p>
+    <a href="{{ path('app_home') }}">Volver a Inicio</a> | <a href="{{ path('app_logout') }}">Cerrar sesión</a>
+{% endblock %}

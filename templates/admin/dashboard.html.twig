@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panel de Administración{% endblock %}
+
+{% block body %}
+    <h1 class="mt-4">Panel de Administración</h1>
+    <p class="lead">Bienvenido, {{ app.user.email }}.</p>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Clientes</h5>
+                    <p class="card-text">{{ numClientes }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Pólizas</h5>
+                    <p class="card-text">{{ numPolizas }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Pólizas Activas</h5>
+                    <p class="card-text">{{ polizasActivas }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <a href="{{ path('app_admin_cliente_index') }}" class="btn btn-primary">Gestionar Clientes</a>
+        <a href="{{ path('app_admin_poliza_index') }}" class="btn btn-primary">Gestionar Pólizas</a>
+        <a href="{{ path('app_home') }}" class="btn btn-secondary">Volver al Inicio</a>
+    </div>
+{% endblock %}

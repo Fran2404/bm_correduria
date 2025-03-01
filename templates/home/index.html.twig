@@ -3,16 +3,26 @@
 {% block title %}Bienvenido a BM Correduría{% endblock %}
 
 {% block body %}
-    <h1>Bienvenido a BM Correduría de Seguros</h1>
+    <div class="jumbotron text-center mb-4">
+        <h1 class="display-4">Bienvenido a BM Correduría de Seguros</h1>
+        <p class="lead">Tu tranquilidad es nuestra prioridad. Encuentra el seguro perfecto para ti.</p>
+        <hr class="my-4">
+        <p>Explora nuestras opciones o contáctanos para más información.</p>
+        <div class="row justify-content-center">
+            <div class="col-md-4"><a href="{{ path('app_about') }}" class="btn btn-outline-primary btn-lg">Sobre Nosotros</a></div>
+            <div class="col-md-4"><a href="{{ path('app_contact') }}" class="btn btn-outline-primary btn-lg">Contacto</a></div>
+            <div class="col-md-4"><a href="{{ path('app_products') }}" class="btn btn-outline-primary btn-lg">Productos</a></div>
+        </div>
+    </div>
     {% if app.user %}
-        <p>Hola, {{ app.user.email }} | <a href="{{ path('app_logout') }}">Cerrar sesión</a></p>
+        <p class="lead mt-3">Hola, {{ app.user.email }} | <a href="{{ path('app_logout') }}" class="btn btn-link">Cerrar sesión</a></p>
         {% if is_granted('ROLE_ADMIN') %}
-            <p><a href="/admin">Panel de administración</a></p>
+            <p><a href="{{ path('app_admin_dashboard') }}" class="btn btn-primary">Panel de administración</a></p>
         {% endif %}
         {% if is_granted('ROLE_USER') %}
-            <p><a href="/cliente">Área de cliente</a></p>
+            <p><a href="{{ path('app_cliente') }}" class="btn btn-primary">Área de clientes</a></p>
         {% endif %}
     {% else %}
-        <p><a href="{{ path('app_login') }}">Iniciar sesión</a></p>
+        <p class="mt-3"><a href="{{ path('app_login') }}" class="btn btn-primary">Iniciar sesión</a></p>
     {% endif %}
 {% endblock %}

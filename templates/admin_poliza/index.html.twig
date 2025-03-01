@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pólizas{% endblock %}
+
+{% block body %}
+    <h1 class="mt-4">Gestión de Pólizas</h1>
+    <table class="table table-striped mt-3">
+        <thead class="thead-dark">
+            <tr>
+                <th>Id</th>
+                <th>Número</th>
+                <th>Tipo</th>
+                <th>Vencimiento</th>
+                <th>Cliente</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for poliza in polizas %}
+            <tr>
+                <td>{{ poliza.id }}</td>
+                <td>{{ poliza.numero }}</td>
+                <td>{{ poliza.tipoSeguro }}</td>
+                <td>{{ poliza.fechaVencimiento ? poliza.fechaVencimiento|date('Y-m-d') : 'N/A' }}</td>
+                <td>{{ poliza.cliente ? poliza.cliente.nombre : 'N/A' }}</td>
+                <td>
+                    <a href="{{ path('app_admin_poliza_show', {'id': poliza.id}) }}" class="btn btn-sm btn-info">Ver</a>
+                    <a href="{{ path('app_admin_poliza_edit', {'id': poliza.id}) }}" class="btn btn-sm btn-warning">Editar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">No hay pólizas registradas.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="mt-3">
+        <a href="{{ path('app_admin_poliza_new') }}" class="btn btn-success">Crear Nueva</a>
+        <a href="{{ path('app_admin_cliente_index') }}" class="btn btn-primary">Gestionar Clientes</a>
+        <a href="{{ path('app_admin_dashboard') }}" class="btn btn-secondary">Volver al Dashboard</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalles de Póliza{% endblock %}
+
+{% block body %}
+    <h1 class="mt-4">Detalles de Póliza</h1>
+    <table class="table mt-3">
+        <tbody>
+            <tr><th>Número</th><td>{{ poliza.numero }}</td></tr>
+            <tr><th>Tipo</th><td>{{ poliza.tipoSeguro }}</td></tr>
+            <tr><th>Vencimiento</th><td>{{ poliza.fechaVencimiento ? poliza.fechaVencimiento|date('Y-m-d') : 'N/A' }}</td></tr>
+        </tbody>
+    </table>
+    <div class="mt-3">
+        <a href="{{ path('app_cliente') }}" class="btn btn-secondary">Volver a Pólizas</a>
+    </div>
+{% endblock %}

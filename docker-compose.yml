@@ -3,7 +3,7 @@ version: '3.8'
 services:
   php:
     build:
-      context: /home/franveper/bm_correduria # Directorio donde está el Dockerfile
+      context: /home/franveper/bm_correduria
       dockerfile: Dockerfile
     container_name: php-fpm
     volumes:
@@ -12,8 +12,18 @@ services:
       - bm_correduria_default
     depends_on:
       - database
+      - mailcatcher
     environment:
       - PHP_EXTENSION_PDO_MYSQL=1
+
+  mailcatcher:
+    image: schickling/mailcatcher
+    container_name: mailcatcher
+    ports:
+      - "1080:1080"  # Interfaz web de MailCatcher
+      - "1025:1025"  # Puerto SMTP
+    networks:
+      - bm_correduria_default
 
   nginx:
     image: nginx:latest
@@ -49,5 +59,3 @@ networks:
 
 volumes:
   mysql-data:
-
-
