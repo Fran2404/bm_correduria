@@ -1,0 +1,12 @@
+monolog:
+    handlers:
+        main:
+            type: stream
+            path: "%kernel.logs_dir%/dev.log"
+            level: debug
+            channels: ["!event"]
+        nested:
+            type: stream
+            path: "%kernel.logs_dir%/dev_nested.log"
+            level: debug
+            channels: ["security", "doctrine"]

@@ -31,7 +31,7 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToOne(inversedBy: 'clienteUsuario', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'clienteUsuario', cascade: ['persist', 'remove'], fetch: 'EAGER')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Cliente $cliente = null;
 
@@ -48,7 +48,6 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -70,10 +69,16 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+    // Asegura que todos los usuarios tengan ROLE_USER
+    $roles[] = 'ROLE_USER';
+    
+    $clienteLoaded = $this->cliente !== null;
+    error_log('Cliente cargado para ' . $this->email . ': ' . ($clienteLoaded ? 'Sí' : 'No'));
+    if ($clienteLoaded) {
+        $roles[] = 'ROLE_CLIENTE';
+    }
+    error_log('Roles para ' . $this->email . ': ' . json_encode($roles));
+    return array_unique($roles);
     }
 
     /**
@@ -82,7 +87,6 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
-
         return $this;
     }
 
@@ -97,7 +101,6 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
         return $this;
     }
 
@@ -115,10 +118,31 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->cliente;
     }
 
-    public function setCliente(Cliente $cliente): static
+    public function setCliente(?Cliente $cliente): static
     {
         $this->cliente = $cliente;
-
         return $this;
+    }
+
+    public function serialize(): string
+    {
+        return serialize([
+            $this->id,
+            $this->email,
+            $this->roles,
+            $this->password,
+            $this->cliente ? $this->cliente->getId() : null,
+        ]);
+    }
+
+    public function unserialize($serialized): void
+    {
+        [
+            $this->id,
+            $this->email,
+            $this->roles,
+            $this->password,
+            $clienteId,
+        ] = unserialize($serialized, ['allowed_classes' => false]);
     }
 }

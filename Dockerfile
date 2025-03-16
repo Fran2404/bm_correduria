@@ -23,5 +23,10 @@ COPY . .
 # Instala las dependencias de Composer
 RUN composer install --no-scripts --no-interaction
 
-# Permisos (ajusta según tu usuario local)
-RUN chown -R www-data:www-data /var/www/html
+# Crea el directorio var/log y asigna permisos
+RUN mkdir -p /var/www/html/var/log \
+    && chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 /var/www/html
+
+# Cambia al usuario www-data para que PHP-FPM y los comandos se ejecuten como www-data
+USER www-data

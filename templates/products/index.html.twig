@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Productos - Beltrán Méndez Correduría{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="display-4">Nuestros Productos</h1>
+        <p class="lead mb-4">Ofrecemos una amplia gama de seguros:</p>
+
+        <!-- Seguro de Auto -->
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-6">
+                <h3>Seguro de Auto</h3>
+                <p>Protege tu vehículo con nuestras pólizas personalizadas. Cobertura completa para tu tranquilidad.</p>
+                <a href="{{ path('app_home') }}" class="btn btn-outline-primary">Volver al Inicio</a>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ asset('images/auto2.jpg') }}" class="img-fluid rounded" alt="Seguro de Auto">
+            </div>
+        </div>
+
+        <!-- Seguro de Hogar -->
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-6">
+                <h3>Seguro de Hogar</h3>
+                <p>Cuida tu hogar con nuestras soluciones integrales. Protección contra robos, incendios y más.</p>
+                <a href="{{ path('app_home') }}" class="btn btn-outline-primary">Volver al Inicio</a>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ asset('images/hogar2.jpg') }}" class="img-fluid rounded" alt="Seguro de Hogar">
+            </div>
+        </div>
+
+        <!-- Seguro de Vida -->
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-6">
+                <h3>Seguro de Vida</h3>
+                <p>Asegura el futuro de tus seres queridos con nuestras pólizas de vida.</p>
+                <a href="{{ path('app_home') }}" class="btn btn-outline-primary">Volver al Inicio</a>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ asset('images/vida2.jpg') }}" class="img-fluid rounded" alt="Seguro de Vida">
+            </div>
+        </div>
+
+        <!-- Seguro de Salud -->
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-6">
+                <h3>Seguro de Salud</h3>
+                <p>Cuida tu bienestar con nuestras pólizas de salud. Cobertura médica completa.</p>
+                <a href="{{ path('app_home') }}" class="btn btn-outline-primary">Volver al Inicio</a>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ asset('images/salud2.jpg') }}" class="img-fluid rounded" alt="Seguro de Salud">
+            </div>
+        </div>
+    </div>
+{% endblock %}

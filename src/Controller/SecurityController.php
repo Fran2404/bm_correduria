@@ -6,9 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Poliza;
+use Symfony\Component\Security\Http\Attribute\IsGranted as AttributeIsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/')]
 class SecurityController extends AbstractController
@@ -36,9 +37,10 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/cliente', name: 'app_cliente')]
-    #[IsGranted('ROLE_USER')]
+    #[IsGranted('ROLE_CLIENTE')] // Cambiado de ROLE_USER a ROLE_CLIENTE
     public function cliente(EntityManagerInterface $entityManager): Response
     {
+        /** @var Usuario $user */    
         $user = $this->getUser();
         $cliente = $user->getCliente();
         $polizas = $cliente ? $entityManager->getRepository(Poliza::class)->findBy(['cliente' => $cliente]) : [];
@@ -50,9 +52,10 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/cliente/poliza/{id}', name: 'app_cliente_poliza_show', methods: ['GET'])]
-    #[IsGranted('ROLE_USER')]
+    #[IsGranted('ROLE_CLIENTE')] // Cambiado de ROLE_USER a ROLE_CLIENTE
     public function showPoliza(Poliza $poliza): Response
     {
+        /** @var Usuario $user */
         $user = $this->getUser();
         $cliente = $user->getCliente();
         if ($poliza->getCliente() !== $cliente) {

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contacto - BM Correduría{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="display-4">Contacto</h1>
+        <p class="lead mb-4">Ponte en contacto con nosotros:</p>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success mt-3">{{ message }}</div>
+        {% endfor %}
+
+        <div class="mt-4">
+            {{ form_start(form) }}
+                <div class="mb-3">
+                    {{ form_label(form.name) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.email) }}
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.message) }}
+                    {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            {{ form_end(form) }}
+        </div>
+
+        <!-- Información de contacto -->
+        <div class="mt-5">
+            <h4>Información de contacto</h4>
+            <p><strong>Teléfono:</strong> +34 123 456 789</p>
+            <p><strong>Dirección:</strong> Calle Ficticia 123, 28001 Malaga, España</p>
+        </div>
+
+        <!-- Botón para volver atrás -->
+        <div class="mt-3">
+	    <button onclick="window.history.back()" class="btn btn-outline-primary">Volver atrás</button>
+        </div>
+    </div>
+{% endblock %}
